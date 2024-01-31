@@ -120,7 +120,7 @@ public class Monster {
     public void attack(Monster enemy) {
         if (this.canAttack()) {
             if (this.getMascots().isEmpty()) {
-                this.logger.info(enemy.getName()+" se prend un coup de "+this.strength+" de dégât par "+this.getName())
+                this.logger.info(enemy.getName()+" se prend un coup de "+this.strength+" de dégât par "+this.getName());
                 enemy.takeDamage(this.strength);
             }
             else {
@@ -128,7 +128,7 @@ public class Monster {
                 for (Monster mascot : this.getMascots()) {
                     boost += mascot.getStrength();
                 }
-                this.logger.info(enemy.getName()+" se prend un coup de "+this.strength + boost+" de dégât par "+this.getName())
+                this.logger.info(enemy.getName()+" se prend un coup de "+this.strength + boost+" de dégât par "+this.getName());
                 enemy.takeDamage(this.strength + boost);
             }
         }
