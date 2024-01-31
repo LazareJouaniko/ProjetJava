@@ -2,7 +2,6 @@ package org.example.monsters;
 
 import org.example.enums.MonsterTypeEnum;
 
-import org.example.monsters.MonsterElement;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +19,10 @@ public class Monster {
     private Logger logger;
     private MonsterElement element;
 
-    public Monster(int id, String name, MonsterTypeEnum type, MonsterElement element ) {
+    public Monster(int id, String name, MonsterTypeEnum type ) {
         this.id = id;
         this.name = name;
-        this.hp = 1;
-        this.element = element;
+        this.hp = 2;
         this.strength = 0;  
         this.type = type;
         this.protectors = new ArrayList<Monster>();
@@ -42,12 +40,13 @@ public class Monster {
 
         this.logger.addHandler(fh);
     }
-    public Monster(int id, String name, int hp, int strength, MonsterTypeEnum type) {
+    public Monster(int id, String name, int hp, int strength, MonsterTypeEnum type,MonsterElement element) {
         this.id = id;
         this.name = name;
         this.hp = hp;
         this.strength = strength;
         this.type = type;
+        this.element = element;
         this.protectors = new ArrayList<Monster>();
         this.mascots = new ArrayList<Monster>();
 
@@ -94,7 +93,7 @@ public class Monster {
     public int getStrength() {
         return strength;
     }
-    public int getElement() {
+    public MonsterElement getElement() {
         return this.element;
     }
 
@@ -129,24 +128,57 @@ public class Monster {
     public void attack(Monster enemy) {
         if (this.canAttack()) {
             if (this.getMascots().isEmpty()) {
-                this.logger.info(enemy.getName()+" se prend un coup de "+this.strength+" de dégât par "+this.getName());
-                enemy.takeDamage(this.strength);
+                this.logger.info(enemy.getName()+" se prend un coup de "+this.strength*this.getWeakness(enemy)+" de dégât par "+this.getName());
+                enemy.takeDamage(this.getStrength() * this.getWeakness(enemy));
             }
             else {
                 int boost = 0;
                 for (Monster mascot : this.getMascots()) {
                     boost += mascot.getStrength();
                 }
-                this.logger.info(enemy.getName()+" se prend un coup de "+this.strength + boost+" de dégât par "+this.getName());
-                enemy.takeDamage(this.strength + boost);
+                this.logger.info(enemy.getName()+" se prend un coup de "+(this.strength + boost)*this.getWeakness(enemy)+" de dégât par "+this.getName());
+                enemy.takeDamage((this.strength+ boost)* this.getWeakness(enemy));
             }
         }
     }
 
+
     public boolean canAttack() {
         return (this.type == MonsterTypeEnum.CLASSIC);
     }
+    //récuperer le coeff de dégat supp en fonction de l'élément
 
+public int getWeakness(Monster m){
+switch (this.element){
+    //si feu faible devant eau
+    case FIRE:
+        if (m.element == MonsterElement.WATER){
+            //feu fort 
+            return 1;
+        }
+        if (m.element == MonsterElement.EARTH){
+            return 2;
+        }
+        return 1;
+    case WATER:
+    if (m.element == MonsterElement.FIRE){
+        //feu fort 
+        return 2 ;
+    }
+    if (m.element == MonsterElement.EARTH){
+        return 1;
+    }
+    case EARTH:
+    if (m.element == MonsterElement.WATER){
+        //feu fort 
+        return 1;
+    }
+    if (m.element == MonsterElement.EARTH){
+        return 2;
+    }
+}
+return 1;
+}
     public void takeDamage(int dmg) {
         if (this.protectors.isEmpty()) {
             this.logger.info(this.name+" a pris "+dmg+" de dégât.");
