@@ -2,6 +2,7 @@ package org.example.monsters;
 
 import org.example.enums.MonsterTypeEnum;
 
+import org.example.monsters.MonsterElement;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +18,14 @@ public class Monster {
     private List<Monster> protectors;
     private List<Monster> mascots;
     private Logger logger;
+    private MonsterElement element;
 
-    public Monster(int id, String name, MonsterTypeEnum type) {
+    public Monster(int id, String name, MonsterTypeEnum type, MonsterElement element ) {
         this.id = id;
         this.name = name;
         this.hp = 1;
-        this.strength = 0;
+        this.element = element;
+        this.strength = 0;  
         this.type = type;
         this.protectors = new ArrayList<Monster>();
         this.mascots = new ArrayList<Monster>();
@@ -68,6 +71,9 @@ public class Monster {
     public void setId(int id) {
         this.id = id;
     }
+    public void setElement(MonsterElement element) {
+        this.element = element;
+    }
 
     public String getName() {
         return name;
@@ -87,6 +93,9 @@ public class Monster {
 
     public int getStrength() {
         return strength;
+    }
+    public int getElement() {
+        return this.element;
     }
 
     public void setStrength(int strength) {
