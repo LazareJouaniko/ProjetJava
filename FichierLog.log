@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2024-01-30T18:06:12.959245900Z</date>
+  <millis>1706637972959</millis>
+  <nanos>245900</nanos>
+  <sequence>0</sequence>
+  <logger>fr.test.Main</logger>
+  <level>INFO</level>
+  <class>org.example.Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>une information</message>
+</record>
+<record>
+  <date>2024-01-30T18:06:13.004890Z</date>
+  <millis>1706637973004</millis>
+  <nanos>890000</nanos>
+  <sequence>1</sequence>
+  <logger>fr.test.Main</logger>
+  <level>WARNING</level>
+  <class>org.example.Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>un warning</message>
+</record>
+<record>
+  <date>2024-01-30T18:06:13.005893400Z</date>
+  <millis>1706637973005</millis>
+  <nanos>893400</nanos>
+  <sequence>2</sequence>
+  <logger>fr.test.Main</logger>
+  <level>SEVERE</level>
+  <class>org.example.Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>joli problème</message>
+</record>
+</log>
